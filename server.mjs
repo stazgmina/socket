@@ -14,14 +14,18 @@ let players = []
 io.on("connection", async socket => {
     socket.on('login', userData => {
         userData = JSON.parse(userData)
-        players.push({id: userData.id, nick: userData.nick, color: userData.color})
+        players.push({id: userData.id, nick: userData.nick, color: userData.color, position: [0,0,0]})
 
         socket.id = userData.id
         socket.nick = userData.nick
-        
+
         console.log(`connected: ${userData.nick}`)
         io.emit('update', players)
+
+
+    
     })
+
 
     socket.on('disconnect',()=>{
         console.log(`disconnected: ${socket.nick}`)
